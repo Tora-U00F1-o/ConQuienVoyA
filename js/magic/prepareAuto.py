@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # URL de la página web con la tabla
-url = "https://gobierno.euitio.uniovi.es/grado/gd/?y=23-24&t=s1"
+url = "https://gobierno.euitio.uniovi.es/grado/gd/?y=23-24&t=s2"
 
 try:
     # Realizar una solicitud HTTP para obtener el contenido de la página
@@ -48,7 +48,7 @@ for row in data:
 js_array = js_array.rstrip(",\n") + "\n]"
 
 # Escribir el resultado en un archivo salida.js
-with open('../salida.js', 'w') as file:
+with open('../salidaA.js', 'w') as file:
     file.write('const data = ' + js_array + ';\n')
 
 print("Archivo de salida 'salida.js' generado con éxito.")
