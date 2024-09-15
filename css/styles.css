@@ -40,6 +40,10 @@ button {
     margin-bottom: 5px; /* Espacio vertical entre los botones */
 }
 
+button.active {
+    background-color: orange;
+}
+
 input[type="number"] {
     padding: 10px;
     font-size: 16px;

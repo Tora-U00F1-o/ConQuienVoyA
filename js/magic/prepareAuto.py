@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # URL de la página web con la tabla
-url = "https://gobierno.euitio.uniovi.es/grado/gd/?y=23-24&t=s2"
+url = "https://gobierno.ingenieriainformatica.uniovi.es/grado/gd/?y=24-25&t=s1"
 
 try:
     # Realizar una solicitud HTTP para obtener el contenido de la página
