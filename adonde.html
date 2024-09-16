@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>¿A qué asignaturas va...?</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/styles2.css">
+
+	<script src="js/salida.js"></script>
+	<script src="js/global.js"></script>
+	<script src="js/magicSpy.js"></script>
+</head>
+<body>
+	<header>
+        <h1>¿A qué asignaturas va...?</h1>
+        <a href="index.html" class="switch-view">¿Con quién voy a...?</a>
+    </header>
+
+
+	<section id="sectionBuscador">
+		<h2>Buscar horario</h2>
+
+		<label for="nameInput">UO:</label>
+		<input type="text" id="nameInput">
+		<button id="searchButton">Buscar</button>
+	</section>
+
+    <section id="res" hidden>
+        <h2 id="try">a</h2>
+        <div id="lista-container" style="height: 300px; overflow: auto;">
+            <ul id="lista">
+            </ul>
+        </div>
+    </section>
+
+	<footer>
+		<p>© 2023 Tora-U00F1-o | ¿Con quién voy a...?</p>
+		<a href="https://github.com/Tora-U00F1-o" target="_blank">
+			<img src="https://avatars.githubusercontent.com/u/79996857?v=4" alt="GitHub" style="vertical-align: middle;">
+			Mi perfil de GitHub
+		</a>
+		| <a href="https://github.com/Tora-U00F1-o/ConQuienVoy" target="_blank">Repositorio en GitHub</a>
+	</footer>
+	
+</body>
+</html>
