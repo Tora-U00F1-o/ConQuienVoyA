@@ -3,8 +3,8 @@ const MY_UO_STORAGE_KEY = "conQuienVoyA_miUO";
 const DEFAULT_MY_UO = "UO276853";
 
 function normalizeUO(input) {
-	const digits = String(input).trim().replace(/^\D+/g, "");
-	return digits ? "UO" + digits : "";
+	const match = String(input).trim().match(/^(?:UO)?\s*(\d+)$/i);
+	return match ? "UO" + match[1] : "";
 }
 
 function getMyUO() {
@@ -22,14 +22,14 @@ function setMyUO(input) {
 /** Misma lógica que la búsqueda en adonde.html */
 function getEnrollmentsForUO(uo) {
 	const results = [];
-	for (let i = 3; i < data.length; i++) {
-		if (data[i][0] === uo) {
-			for (let j = 2; j < data[i].length; j++) {
-				if (data[i][j] !== "-" && data[i][j] !== "") {
+	for (const row of data) {
+		if (isEnrollmentRow(row) && row[0] === uo) {
+			for (let j = 2; j < row.length; j++) {
+				if (row[j] !== "-" && row[j] !== "") {
 					results.push({
 						asignatura: data[0][j],
 						tipo: data[1][j],
-						grupo: String(data[i][j]),
+						grupo: String(row[j]),
 					});
 				}
 			}

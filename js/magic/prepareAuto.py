@@ -10,6 +10,7 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+from schedule_config import ENROLLMENT_URL
 
 # Rutas fijas respecto a la ubicación del script
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -22,7 +23,7 @@ OUTPUT_JS_APP = JS_DIR / "salida.js"
 EXPECTED_COLUMNS = 80
 
 # URL de la página web con la tabla (curso y semestre)
-url = "https://gobierno.ingenieriainformatica.uniovi.es/grado/gd/?y=26-27&t=s1"
+url = ENROLLMENT_URL
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -115,7 +116,7 @@ def normalize_rows(rows: list[list[str]]) -> list[list[str]]:
     normalized: list[list[str]] = []
 
     for i, row in enumerate(rows):
-        cells = list(row)
+        cells = [str(cell).strip() for cell in row]
         if i < 2:
             cells = ["" if c == "." else c for c in cells]
         if len(cells) < width:
@@ -144,7 +145,8 @@ def build_salida_js_content(rows: list[list[str]]) -> str:
 
 def write_js_file(path: Path, content: str) -> None:
     try:
-        path.write_text(content, encoding="utf-8")
+        with path.open("w", encoding="utf-8", newline="\n") as output:
+            output.write(content)
     except OSError as e:
         fail(f"No se pudo escribir '{path}': {e}")
     size_kb = path.stat().st_size / 1024

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi horario | ¿Con quién voy a...?</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/salida.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/myEnrollments.js"></script>
+    <script src="js/planificacion.js"></script>
+    <script src="js/mySchedule.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Mi horario</h1>
+        <nav class="header-actions" aria-label="Navegación principal">
+            <a href="index.html" class="switch-view">Ver grupos</a>
+            <a href="adonde.html" class="switch-view">Buscar por UO</a>
+        </nav>
+    </header>
+    <main class="page-content">
+        <section class="schedule-hero">
+            <div class="schedule-topline">
+                <div>
+                    <p class="eyebrow">PLANIFICACIÓN 2026–27 · 1.º SEMESTRE</p>
+                    <h2>Tu horario de clases</h2>
+                </div>
+                <a id="officialPlanLink" class="official-link" target="_blank" rel="noreferrer">Abrir planificación oficial</a>
+            </div>
+            <form id="scheduleForm" class="uo-form" novalidate>
+                <label for="scheduleInput">UO</label>
+                <div class="input-action">
+                    <input type="text" id="scheduleInput" inputmode="numeric" autocomplete="off" placeholder="Ej. UO276853" required>
+                    <button type="submit">Cargar horario</button>
+                </div>
+                <p id="scheduleMessage" class="form-message" role="status"></p>
+            </form>
+        </section>
+
+        <section class="planner" aria-live="polite">
+            <div class="planner-toolbar">
+                <div class="view-tabs" role="tablist" aria-label="Vista del horario">
+                    <button class="view-tab active" data-view="week" role="tab" aria-selected="true">Semana</button>
+                    <button class="view-tab" data-view="day" role="tab" aria-selected="false">Día</button>
+                    <button class="view-tab" data-view="table" role="tab" aria-selected="false">Tabla</button>
+                </div>
+                <div id="dateNavigator" class="date-navigator">
+                    <button id="previousPeriod" class="nav-button" aria-label="Periodo anterior">‹</button>
+                    <h2 id="periodTitle"></h2>
+                    <button id="nextPeriod" class="nav-button" aria-label="Periodo siguiente">›</button>
+                </div>
+            </div>
+            <p id="plannerSummary" class="planner-summary"></p>
+            <div id="plannerContent"></div>
+            <p id="plannerEmpty" class="empty-state" hidden>No hay clases registradas en este periodo.</p>
+        </section>
+    </main>
+
+    <dialog id="classDialog" class="class-dialog">
+        <button id="closeDialog" class="dialog-close" aria-label="Cerrar">×</button>
+        <p class="eyebrow">DETALLE DE CLASE</p>
+        <h2 id="dialogTitle"></h2>
+        <dl id="dialogDetails"></dl>
+    </dialog>
+
+    <footer><p>© 2023 Tora-U00F1-o | ¿Con quién voy a...?</p><a href="https://github.com/Tora-U00F1-o" target="_blank" rel="noreferrer">Mi perfil de GitHub</a> | <a href="https://github.com/Tora-U00F1-o/ConQuienVoy" target="_blank" rel="noreferrer">Repositorio en GitHub</a></footer>
+</body>
+</html>

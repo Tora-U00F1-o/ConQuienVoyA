@@ -50,14 +50,32 @@ function compareUO(a, b) {
 	return String(a).localeCompare(String(b), "es");
 }
 
-// Con la columna del data (la asignatura y tipo) y el grupo, obtiene las personas del grupo
+function isEnrollmentRow(row) {
+	return Array.isArray(row) && /^UO\d+$/i.test(String(row[0] || "").trim());
+}
+
+// Con la columna del data (la asignatura y tipo) y el grupo, obtiene las personas del grupo.
+// No asumimos que los grupos sean numéricos: también existen valores como «I-1».
 function getUos(col, group) {
 	const res = [];
-	for (let i = 3; i < data.length; i++) {
-		if (group.toString() === data[i][col]) {
-			res.push(data[i][0]);
+	for (const row of data) {
+		if (isEnrollmentRow(row) && String(group) === String(row[col])) {
+			res.push(row[0]);
 		}
 	}
 	res.sort(compareUO);
 	return res;
+}
+
+function getGroups(col) {
+	const groups = new Set();
+	for (const row of data) {
+		const group = row[col];
+		if (isEnrollmentRow(row) && group !== "-" && group !== "" && group != null) {
+			groups.add(String(group));
+		}
+	}
+	return [...groups].sort((a, b) =>
+		a.localeCompare(b, "es", { numeric: true, sensitivity: "base" })
+	);
 }

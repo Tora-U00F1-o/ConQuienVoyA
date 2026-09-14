@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>¿Con quién voy a...?</title>
 	<link rel="stylesheet" href="css/styles.css">
-
 	<script src="js/salida.js"></script>
 	<script src="js/global.js"></script>
 	<script src="js/myEnrollments.js"></script>
@@ -13,47 +12,18 @@
 </head>
 <body>
 	<header>
-        <h1>¿Con quién voy a...?</h1>
-        <a href="adonde.html" class="switch-view">Ir a ¿A qué asignaturas va...?</a>
-    </header>
-
-
-	<section id="section1">
-        <h2>Selecciona la Asignatura</h2>
-
-	</section>
-
-	<section id="section2">
-        <h2>Selecciona el Tipo de Clase</h2>
-
-	</section>
-	<section id="sectionGrupos">
-		<h2>Selecciona el Grupo</h2> 
-	</section>
-
-	<!-- <section id="section3">
-		<h2>Selecciona el Grupo</h2>
-		<label for="number">Número de Grupo:</label>
-		<input type="number" id="number" value="1">
-	</section>-->
-
-    
-    <section id="res" hidden>
-        <h2 id="try">a</h2>
-        <div id="lista-container" style="height: 300px; overflow: auto;">
-            <ul id="lista">
-            </ul>
-        </div>
-    </section>
-
-	<footer>
-		<p>© 2023 Tora-U00F1-o | ¿Con quién voy a...?</p>
-		<a href="https://github.com/Tora-U00F1-o" target="_blank">
-			<img src="https://avatars.githubusercontent.com/u/79996857?v=4" alt="GitHub" style="vertical-align: middle;">
-			Mi perfil de GitHub
-		</a>
-		| <a href="https://github.com/Tora-U00F1-o/ConQuienVoy" target="_blank">Repositorio en GitHub</a>
-	</footer>
-	
+		<h1>¿Con quién voy a...?</h1>
+		<nav class="header-actions" aria-label="Navegación principal">
+			<a href="horario.html" class="switch-view">Mi horario</a>
+			<a href="adonde.html" class="switch-view">Buscar por UO</a>
+		</nav>
+	</header>
+	<main class="page-content">
+		<section id="section1"><h2>Selecciona la asignatura</h2></section>
+		<section id="section2"><h2>Selecciona el tipo de clase</h2></section>
+		<section id="sectionGrupos"><h2>Selecciona el grupo</h2></section>
+		<section id="res" hidden><h2 id="try"></h2><div id="lista-container"><ul id="lista"></ul></div></section>
+	</main>
+	<footer><p>© 2023 Tora-U00F1-o | ¿Con quién voy a...?</p><a href="https://github.com/Tora-U00F1-o" target="_blank" rel="noreferrer">Mi perfil de GitHub</a> | <a href="https://github.com/Tora-U00F1-o/ConQuienVoy" target="_blank" rel="noreferrer">Repositorio en GitHub</a></footer>
 </body>
 </html>

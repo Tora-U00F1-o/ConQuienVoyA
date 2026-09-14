@@ -50,8 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function createGroupsButtons() {
-	subject = selectedHeaderIndex; 
-	tipo = selectedHeader2Index;
+	const subject = selectedHeaderIndex;
+	const tipo = selectedHeader2Index;
 
 	var col = getCol(headerSet[subject], header2Set[tipo]);
 	if(col === -1) {
@@ -68,22 +68,21 @@ function createGroupsButtons() {
 	section.appendChild(h2);
 
 
-	var grupo = 1;
-	var uos = getUos(col, grupo);
-	grupoLenght = uos.length;
+	const groups = getGroups(col);
 
-	if(grupoLenght === 0) {
+	if (groups.length === 0) {
 		var txtNoGrupos = document.createElement("h3");
 		txtNoGrupos.textContent = "No hay personas en este grupo";
 		section.appendChild(txtNoGrupos);
 	}
 
-	while(grupoLenght > 0) {
+	for (const grupo of groups) {
+		const members = getUos(col, grupo);
 		// un boton por cada grupo con el nombre "Grupo 2: 10" siendo 10 el num de personas
 		// y al clickear en el boton se muestren las personas de ese grupo
 		(function(grupo) {
 			var button = document.createElement("button");
-			button.textContent = header2Set[tipo]+""+grupo+":"+grupoLenght;
+			button.textContent = header2Set[tipo]+""+grupo+":"+members.length;
 			applyMyEnrollmentClass(
 				button,
 				hasMySubjectTypeGroup(headerSet[subject], header2Set[tipo], grupo)
@@ -104,9 +103,7 @@ function createGroupsButtons() {
 			section.appendChild(button);
 
 		})(grupo);
-		var uos = getUos(col, ++grupo);
-		grupoLenght = uos.length;
-	} 
+	}
 }
 
 
