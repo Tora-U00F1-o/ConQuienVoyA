@@ -79,6 +79,22 @@ button.active {
     background-color: orange;
 }
 
+/* Asignatura / tipo / grupo del UO configurado (mis clases) */
+button.my-enrollment {
+    background-color: #87ceeb;
+    color: #0d3d56;
+}
+
+button.my-enrollment:hover {
+    background-color: #6ec4e8;
+}
+
+button.my-enrollment.active {
+    background-color: orange;
+    color: white;
+    box-shadow: 0 0 0 2px #87ceeb;
+}
+
 input[type="number"] {
     padding: 10px;
     font-size: 16px;

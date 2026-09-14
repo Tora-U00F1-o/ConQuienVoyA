@@ -10,30 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Por favor, ingrese un UO.");
             return;
         }
-        // Quitar todas las letras del principio y añadir "UO" delante
-        uo = "UO" + uo.replace(/^\D+/g, '');
+        uo = setMyUO(uo);
+        if (!uo) {
+            alert("Por favor, ingrese un UO válido.");
+            return;
+        }
 
         // Limpiar la lista anterior
         while (lista.firstChild) {
             lista.removeChild(lista.firstChild);
         }
 
-        // Buscar el UO en la data
-        const results = [];
-        for (let i = 3; i < data.length; i++) {
-            if (data[i][0] === uo) {
-                for (let j = 2; j < data[i].length; j++) {
-                    if (data[i][j] !== "-" && data[i][j] !== "") {
-                        results.push({
-                            asignatura: data[0][j],
-                            tipo: data[1][j],
-                            grupo: data[i][j]
-                        });
-                    }
-                }
-                break;
-            }
-        }
+        const results = getEnrollmentsForUO(uo);
 
         
 		var parrafo = document.getElementById("try");

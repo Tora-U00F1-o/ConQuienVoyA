@@ -41,6 +41,15 @@ function getCol(subject, t) {
 	return -1;
 }
 
+function compareUO(a, b) {
+	const na = parseInt(String(a).replace(/\D/g, ""), 10);
+	const nb = parseInt(String(b).replace(/\D/g, ""), 10);
+	if (!Number.isNaN(na) && !Number.isNaN(nb) && na !== nb) {
+		return na - nb;
+	}
+	return String(a).localeCompare(String(b), "es");
+}
+
 // Con la columna del data (la asignatura y tipo) y el grupo, obtiene las personas del grupo
 function getUos(col, group) {
 	const res = [];
@@ -49,5 +58,6 @@ function getUos(col, group) {
 			res.push(data[i][0]);
 		}
 	}
+	res.sort(compareUO);
 	return res;
 }

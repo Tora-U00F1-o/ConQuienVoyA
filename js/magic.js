@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			const button = document.createElement("button");
 			button.textContent = array[i];
 
+			if (sectionId === "section1") {
+				applyMyEnrollmentClass(button, hasMySubject(array[i]));
+			}
+
 			// Agrega un manejador de clic al botón para guardar el índice seleccionado
 			button.addEventListener("click", () => {
 				const buttons = section.getElementsByTagName("button");
@@ -29,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Función para manejar el clic en los botones de headerSet
 	function handleHeaderSetClick(index) {
 		selectedHeaderIndex = index;
+		refreshTypeButtonHighlights();
 	}
 
 	// Función para manejar el clic en los botones de header2Set
@@ -39,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Llama a la función para crear botones y agregarlos a las secciones
 	createButtonsAndAddToSection(headerSet, 1, "section1", handleHeaderSetClick);
 	createButtonsAndAddToSection(header2Set, 2, "section2", handleHeader2SetClick);
-    
+	refreshTypeButtonHighlights();
 });
 // -------------------------------------------------------------------------------------
 
@@ -79,6 +84,10 @@ function createGroupsButtons() {
 		(function(grupo) {
 			var button = document.createElement("button");
 			button.textContent = header2Set[tipo]+""+grupo+":"+grupoLenght;
+			applyMyEnrollmentClass(
+				button,
+				hasMySubjectTypeGroup(headerSet[subject], header2Set[tipo], grupo)
+			);
 
 			// Agrega un manejador de clic al botón para guardar el índice seleccionado
 			button.addEventListener("click", () => {
