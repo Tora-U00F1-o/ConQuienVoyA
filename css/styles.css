@@ -127,8 +127,23 @@ footer a { color: white; }
 
 .schedule-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
 .schedule-topline h2 { margin-bottom: 0; }
+.settings-button { margin: 18px 0 0; color: #12567e; border: 1px solid #8abbd5; background: white; }
+.settings-button:hover { color: #0c4262; background: #dceff9; }
 .official-link { padding: 8px 12px; border: 1px solid #8abbd5; border-radius: 7px; color: #12567e; font-size: .88rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .official-link:hover { background: #dceff9; }
+.schedule-settings { margin-top: 20px; padding-top: 20px; border-top: 1px solid #cde4f1; }
+.uo-form { margin-top: 0; }
+.schedule-preview { margin-top: 22px; padding: 18px; border-radius: 9px; background: #f3f8fb; }
+.schedule-preview h3 { margin: 0 0 5px; font-size: 1rem; }
+.schedule-preview > p:not(.eyebrow) { margin-bottom: 16px; color: var(--muted); font-size: .92rem; }
+.preview-selectors { display: flex; flex-wrap: wrap; gap: 14px; }
+.preview-selectors > div { flex: 1 1 220px; }
+.preview-selectors label { margin-bottom: 5px; }
+select { width: 100%; padding: 10px 12px; border: 1px solid #b8c8d4; border-radius: 7px; color: var(--ink); background: white; font: inherit; }
+select:focus-visible { outline: 3px solid #8ed0f3; outline-offset: 2px; }
+.clear-preview { margin: 14px 0 0; color: #12567e; border: 1px solid #8abbd5; background: transparent; }
+.clear-preview:hover { background: #dceff9; }
+.preview-message { min-height: 1.2em; margin: 10px 0 0; color: #12567e; font-size: .88rem; }
 
 .planner { overflow: hidden; }
 .planner-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 17px; border-bottom: 1px solid var(--line); }
@@ -160,6 +175,8 @@ footer a { color: white; }
 .calendar-event:hover { color: #083951; background: #9edcf4; transform: none; }
 .calendar-event.exception { color: #801d1d; background: #ffd6d6; }
 .calendar-event.exception:hover { color: #801d1d; background: #ffbebe; }
+.calendar-event.preview { color: white; background: #126ca0; }
+.calendar-event.preview:hover { color: white; background: #0d5785; }
 .calendar-event span { overflow: hidden; width: 100%; white-space: nowrap; text-overflow: ellipsis; }
 
 .schedule-table-wrapper { overflow: auto; max-height: 650px; border: 1px solid var(--line); border-radius: 8px; }
@@ -170,6 +187,8 @@ footer a { color: white; }
 .schedule-table tbody tr:hover, .schedule-table tbody tr:focus { background: #eaf6fc; outline: none; }
 .schedule-table tbody tr.exception { color: #a51f1f; background: #fff2f2; }
 .schedule-table tbody tr.exception:hover, .schedule-table tbody tr.exception:focus { background: #ffdede; }
+.schedule-table tbody tr.preview { color: #0c486b; background: #e2f2fa; }
+.schedule-table tbody tr.preview:hover, .schedule-table tbody tr.preview:focus { background: #c7e8f6; }
 
 .class-dialog { width: min(440px, calc(100% - 32px)); padding: 27px; border: 0; border-radius: 12px; box-shadow: 0 18px 60px rgba(0, 0, 0, .25); color: var(--ink); }
 .class-dialog::backdrop { background: rgba(8, 30, 45, .5); }

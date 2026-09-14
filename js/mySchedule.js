@@ -10,15 +10,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const next = document.getElementById("nextPeriod");
     const navigator = document.getElementById("dateNavigator");
     const officialLink = document.getElementById("officialPlanLink");
+    const settingsButton = document.getElementById("settingsButton");
+    const settings = document.getElementById("scheduleSettings");
+    const previewSubject = document.getElementById("previewSubject");
+    const previewType = document.getElementById("previewType");
+    const previewMessage = document.getElementById("previewMessage");
+    const clearPreview = document.getElementById("clearPreview");
     const dialog = document.getElementById("classDialog");
     const dialogTitle = document.getElementById("dialogTitle");
     const dialogDetails = document.getElementById("dialogDetails");
     const spanishDate = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" });
     const shortDate = new Intl.DateTimeFormat("es-ES", { weekday: "short", day: "numeric", month: "short" });
-    const typeCodes = { "Teor.": "T", "P.A.": "S", "P.L.": "L" };
+    const typeCodes = { "Teor.": "T", "P.A.": "S", "P.L.": "L", "T.G.": "TG" };
+    const previewTypes = [
+        { value: "T", label: "Teoría" },
+        { value: "S", label: "Seminario" },
+        { value: "L", label: "Laboratorio" },
+        { value: "TG", label: "TG" },
+    ];
     let view = "week";
     let selectedDate = new Date();
     let events = [];
+    let ownEvents = [];
+    let previewEvents = [];
 
     function localDate(value) {
         return new Date(`${value}T00:00:00`);
@@ -96,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function eventButton(event, compact = false) {
         const button = document.createElement("button");
         button.type = "button";
-        button.className = `calendar-event${event.exception ? " exception" : ""}${compact ? " compact" : ""}`;
+        button.className = `calendar-event${event.exception ? " exception" : ""}${event.preview ? " preview" : ""}${compact ? " compact" : ""}`;
         button.innerHTML = `<strong>${event.group}</strong><span>${formatTime(event.start)}–${formatTime(event.end)}</span><span>${event.location || "Aula pendiente"}</span>`;
         button.addEventListener("click", () => showDetails(event));
         return button;
@@ -112,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const event of dayEvents) {
             const row = document.createElement("button");
             row.type = "button";
-            row.className = `day-event${event.exception ? " exception" : ""}`;
+            row.className = `day-event${event.exception ? " exception" : ""}${event.preview ? " preview" : ""}`;
             row.innerHTML = `<time>${formatTime(event.start)}–${formatTime(event.end)}</time><span><strong>${event.group}</strong><small>${spanishDate.format(selectedDate)}, ${formatTime(event.start)}-${formatTime(event.end)}, ${event.location || "Aula pendiente"}, (${classNumber(event.description)})</small></span><span class="room">${event.location || "—"}</span>`;
             row.addEventListener("click", () => showDetails(event));
             list.appendChild(row);
@@ -182,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const body = document.createElement("tbody");
         for (const event of events) {
             const row = document.createElement("tr");
-            row.className = event.exception ? "exception" : "";
+            row.className = `${event.exception ? "exception" : ""}${event.preview ? " preview" : ""}`;
             row.tabIndex = 0;
             row.innerHTML = `<td>${spanishDate.format(localDate(event.date))}</td><td>${formatTime(event.start)}–${formatTime(event.end)}</td><td><strong>${event.group}</strong></td><td>${event.location || "—"}</td><td>(${classNumber(event.description)})</td>`;
             row.addEventListener("click", () => showDetails(event));
@@ -207,13 +221,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadSchedule(uo) {
         const groups = myGroupCodes(uo);
-        events = scheduleData.filter(event => groups.has(event.group));
+        ownEvents = scheduleData.filter(event => groups.has(event.group));
+        updatePreview();
         officialLink.href = buildOfficialUrl(uo);
+    }
+
+    function addOption(select, value, label) {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        select.appendChild(option);
+    }
+
+    function populatePreviewSelectors() {
+        const subjects = [...new Set(scheduleData.map(event => event.group.split(".")[0]))]
+            .sort((a, b) => a.localeCompare(b, "es"));
+        addOption(previewSubject, "", "Selecciona una asignatura");
+        subjects.forEach(subject => addOption(previewSubject, subject, subject));
+        addOption(previewType, "", "Selecciona un tipo");
+        previewTypes.forEach(type => addOption(previewType, type.value, type.label));
+    }
+
+    function updatePreview() {
+        const subject = previewSubject.value;
+        const type = previewType.value;
+        previewEvents = subject && type
+            ? scheduleData.filter(event => event.group.startsWith(`${subject}.${type}.`))
+                .map(event => ({ ...event, preview: true }))
+            : [];
+        events = (previewEvents.length ? previewEvents : ownEvents)
+            .sort((a, b) => a.date.localeCompare(b.date) || a.start.localeCompare(b.start) || a.group.localeCompare(b.group));
+        clearPreview.hidden = previewEvents.length === 0;
+        previewMessage.textContent = subject && type
+            ? (previewEvents.length ? `${previewEvents.length} clases de todos los grupos de ${subject} (${previewType.selectedOptions[0].textContent}) se muestran en azul oscuro.` : `No hay grupos de ${subject} para ese tipo de clase.`)
+            : "";
         render();
     }
 
+    populatePreviewSelectors();
     input.value = getMyUO();
     loadSchedule(input.value);
+
+    settingsButton.addEventListener("click", () => {
+        const open = settings.hidden;
+        settings.hidden = !open;
+        settingsButton.setAttribute("aria-expanded", String(open));
+        if (open) input.focus();
+    });
+    previewSubject.addEventListener("change", updatePreview);
+    previewType.addEventListener("change", updatePreview);
+    clearPreview.addEventListener("click", () => {
+        previewSubject.value = "";
+        previewType.value = "";
+        updatePreview();
+    });
 
     form.addEventListener("submit", event => {
         event.preventDefault();

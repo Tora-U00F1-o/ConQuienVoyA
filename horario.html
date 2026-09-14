@@ -15,7 +15,7 @@
     <header>
         <h1>Mi horario</h1>
         <nav class="header-actions" aria-label="Navegación principal">
-            <a href="index.html" class="switch-view">Ver grupos</a>
+            <a href="grupos.html" class="switch-view">Lista de alumnos</a>
             <a href="adonde.html" class="switch-view">Buscar por UO</a>
         </nav>
     </header>
@@ -28,6 +28,8 @@
                 </div>
                 <a id="officialPlanLink" class="official-link" target="_blank" rel="noreferrer">Abrir planificación oficial</a>
             </div>
+            <button id="settingsButton" class="settings-button" type="button" aria-expanded="false" aria-controls="scheduleSettings">Ajustes</button>
+            <div id="scheduleSettings" class="schedule-settings" hidden>
             <form id="scheduleForm" class="uo-form" novalidate>
                 <label for="scheduleInput">UO</label>
                 <div class="input-action">
@@ -36,6 +38,18 @@
                 </div>
                 <p id="scheduleMessage" class="form-message" role="status"></p>
             </form>
+            <div class="schedule-preview">
+                <p class="eyebrow">EXPLORAR OPCIONES</p>
+                <h3>Ver grupos en el calendario</h3>
+                <p>Elige una asignatura y un tipo de clase para ver temporalmente todos sus grupos en lugar de tu horario.</p>
+                <div class="preview-selectors">
+                    <div><label for="previewSubject">Asignatura</label><select id="previewSubject"></select></div>
+                    <div><label for="previewType">Tipo de clase</label><select id="previewType"></select></div>
+                </div>
+                <button id="clearPreview" class="clear-preview" type="button" hidden>Ocultar opciones</button>
+                <p id="previewMessage" class="preview-message" role="status"></p>
+            </div>
+            </div>
         </section>
 
         <section class="planner" aria-live="polite">
